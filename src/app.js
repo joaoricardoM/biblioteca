@@ -19,10 +19,6 @@ routes(app);
 //     {id: 2, "titulo": "O hobbit"},
 // ]
 
-app.get('/', (req, res) => {
-    res.status(200).send('Curso Node');
-})
-
 app.get('/book', (req, res) => {
     book.find((err, book) => {
         res.status(200).json(book);
