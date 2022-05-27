@@ -1,6 +1,7 @@
 import express from "express";
 import db from "./config/dbConnect.js";
-import Book from "./models/Book.js"
+import book from "./models/Book.js";
+import routes from "./routes/index.js"
 
 db.on("error", console.log.bind(console, 'erro de conexão'));
 db.once("open", () => {
@@ -10,6 +11,8 @@ db.once("open", () => {
 const app = express();
 
 app.use(express.json());
+
+routes(app);
 
 // const book = [
 //     {id: 1, "titulo": "stranger"},
@@ -21,36 +24,36 @@ app.get('/', (req, res) => {
 })
 
 app.get('/book', (req, res) => {
-    Book.find((err, book) => {
-        res.status(200).json(Book);
+    book.find((err, book) => {
+        res.status(200).json(book);
     })
 })
 
 app.get('/book/:id', (req, res) => {
     let index = getBook(req.params.id)
-    res.status(200).json(Book[index])
+    res.json(book[index])
 })
 
 app.post('/book', (req, res) => {
-    Book.push(req.body);
+    book.push(req.body);
     res.status(201).send('cadastrado com sucesso')
 })
 
 app.put('/book/:id', (req, res) => {
     let index = getBook(req.params.id)
-    Book[index].titulo = req.body.titulo;
-    res.status(200).json(Book)
+    book[index].titulo = req.body.titulo;
+    res.json(book)
 })
 
 app.delete('/book/:id', (req, res) => {
     let {id} = req.params;
     let index = getBook(id)
-    Book.splice(index, 1)
+    book.splice(index, 1)
     res.send(`book ${id} removed with successfully`)
 })
 
 function getBook(id) {
-    return Book.findIndex( book => book.id == id);
+    return book.findIndex( book => book.id == id);
 }
 
 export default app;
