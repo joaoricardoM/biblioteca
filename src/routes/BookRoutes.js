@@ -1,10 +1,11 @@
 import express from 'express';
+import bookController from '../controllers/bookController.js';
 
-import BookController from '../controllers/bookController.js';
-
-const router = express.Router();
+const router = express.Router()
 
 router
-    .get('/book', BookController.listBook)
-    .post('/book', BookController.registerBook)
-    export default router;
+    .get("/book", bookController.listBook)
+    .post("/book", bookController.registerBook)
+    .put("/book/:id", bookController.updateBook)
+
+export default router;
