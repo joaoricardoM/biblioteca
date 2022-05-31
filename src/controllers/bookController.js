@@ -15,7 +15,6 @@ class BookController {
 
         Book.findById(id)
         .populate('author', 'name')
-
         .exec((err, Book) => {
             if (err) {
                 res.status(400).send({ message: `${err.message} - error don't have id ${id}` })
@@ -59,6 +58,14 @@ class BookController {
             } else {
                 res.status(500).send({ message: `${err.message} - error ${id} is not valid or not exist` })
             }
+        })
+    }
+
+    static listBookEditor = (req, res) => {
+        const Editor = req.query.editor
+
+        Book.find({'editor': Editor }, {}, (err, Book) => {
+            res.status(200).send(Book)
         })
     }
 
