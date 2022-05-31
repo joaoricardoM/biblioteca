@@ -4,10 +4,10 @@ import autorController from '../controllers/autorController.js';
 const router = express.Router()
 
 router
-    .get("/author", autorController.listAutor)
-    .get("/author/:id", autorController.listAutorById)
-    .post("/author", autorController.registerAutor)
-    .put("/author/:id", autorController.updateAutor)
-    .delete("/author/:id", autorController.deleteAutor)
+    .get("/autor", autorController.listAutor)
+    .get("/autor/:id", autorController.listAutorById)
+    .post("/autor", autorController.registerAutor)
+    .put("/autor/:id", autorController.updateAutor)
+    .delete("/autor/:id", autorController.deleteAutor)
 
 export default router;

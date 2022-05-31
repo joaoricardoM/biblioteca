@@ -11,6 +11,6 @@ const authoSchema = new mongoose.Schema({
     }
 
 )
-        const author = mongoose.model("author", authoSchema);
+        const author = mongoose.model("autor", authoSchema);
 
         export default author;
