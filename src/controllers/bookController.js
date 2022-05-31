@@ -3,7 +3,9 @@ import Book from '../models/Book.js'
 class BookController {
 
     static listBook = (req, res) => {
-        Book.find((err, Book) => {
+        Book.find()
+            .populate('author')
+            .exec((err, Book) => {
             res.status(200).json(Book);
         })
     }
@@ -11,10 +13,13 @@ class BookController {
     static listBookById = (req, res) => {
         const id = req.params.id;
 
-        Book.findById(id, (err, Book) => {
+        Book.findById(id)
+        .populate('author', 'name')
+
+        .exec((err, Book) => {
             if (err) {
                 res.status(400).send({ message: `${err.message} - error don't have id ${id}` })
-            }else {
+            } else {
                 res.status(200).send(Book)
             }
         })
@@ -50,7 +55,7 @@ class BookController {
 
         Book.findByIdAndDelete(id, (err) => {
             if (!err) {
-                res.status(200).send({ message: 'book is deleted it successfully'})
+                res.status(200).send({ message: 'book is deleted it successfully' })
             } else {
                 res.status(500).send({ message: `${err.message} - error ${id} is not valid or not exist` })
             }
